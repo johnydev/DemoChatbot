@@ -24,8 +24,8 @@ function handleEvent(event) {
       const echo = { type: 'text', text: event.message.text };
     
       // use reply API
-    //  return lineclient.replyMessage(event.replyToken, echo);
-      return lineclient.pushMessage(event.source.userid,echo);
+      return lineclient.replyMessage(event.replyToken, echo);
+     // return lineclient.pushMessage(event.source.userid,echo);
     }
     
     // listen on port
