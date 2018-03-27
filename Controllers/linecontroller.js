@@ -1,11 +1,9 @@
 'use strict';
 
+const configs = require('../configs');
 const line = require('@line/bot-sdk');
-const lineclient = line.Client;
-const config = {
-    channelAccessToken: 'JNJUs4whRnPrKjzkywhnkE9CEDpnSMy6QuxMHQJh756kVZFDlSUDr78BWH5QmsYVUelivgwGETbDnJDKl7VjFyrWbV1uuDgu7AXyXtqXyPgH+W7PF6lxfb5av/z8fHgBOAkGv1o+VOUmOB4JZfJzZAdB04t89/1O/w1cDnyilFU=',
-    channelSecret: 'a1182ee1373b7c0471190d2e2084a7f0',
-};
+const lineclient = new line.Client(configs.lineconfig);
+
 function webhookImp(req, res) {
     Promise
     .all(req.body.events.map(handleEvent))
