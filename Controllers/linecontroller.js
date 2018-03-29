@@ -69,7 +69,7 @@ function handleEvent(event) {
                             });
                     }
                     if (event.message.text == 'map') {
-                        echo = { type: 'location', 
+                        const echo = { type: 'location', 
                         title: 'Soft SQ Co.,Ltd.',
                         address: 'Central Tower1 Building',
                         latitude: 13.668498,
