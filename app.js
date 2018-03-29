@@ -5,14 +5,16 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const configs = require('./configs')
 const mongoose = require('mongoose')
-global.db = mongoose.createConnection(configs.mongodbconfig);
+mongoose.connect(configs.mongodbconfig);
+
+//global.db = mongoose.createConnection(configs.mongodbconfig);
 
 var app = express();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var lineRouter = require('./routes/line');
-global.db = mongoose.createConnection(configs.mongodbconfig);
+
 
 
 app.use('/', indexRouter);
