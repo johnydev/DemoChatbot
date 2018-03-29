@@ -29,20 +29,10 @@ function handleEvent(event) {
     //     longitude: 139.70372892916203
     //  };
     const echo = '';
-    if (event.message.text == 'map') {
-        echo = { type: 'location', 
-        title: 'Soft SQ Co.,Ltd.',
-        address: 'Central Tower1 Building',
-        latitude: 13.668498,
-        longitude: 100.633863
-        };
-    }
-    else {
-        const echo = { type: 'text', text: event.message.text };
-    }
+    
 
 //}
-    lineclient.pushMessage(event.source.userId, echo);
+    //lineclient.pushMessage(event.source.userId, echo);
     console.log('Test UserID');
     console.log(event.source.userId);
     lineclient.getProfile(event.source.userId)
@@ -61,7 +51,17 @@ function handleEvent(event) {
                             createdDate: new Date().toJSON(),
                         })
                             .then((result) => {
-                               
+                                if (event.message.text == 'map') {
+                                    echo = { type: 'location', 
+                                    title: 'Soft SQ Co.,Ltd.',
+                                    address: 'Central Tower1 Building',
+                                    latitude: 13.668498,
+                                    longitude: 100.633863
+                                    };
+                                }
+                                else {
+                                    const echo = { type: 'text', text: event.message.text };
+                                }
                             }).catch((e) => {
                                 console.log(e);
                             });
@@ -92,7 +92,7 @@ function handleEvent(event) {
     //   });
       // use reply API
       //return lineclient.replyMessage(event.replyToken, echo);
-     // return lineclient.pushMessage(event.source.userid,echo);
+     return lineclient.pushMessage(event.source.userId,echo);
     
 
 // listen on port
