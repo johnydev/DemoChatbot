@@ -4,6 +4,8 @@ const configs = require('../configs');
 const line = require('@line/bot-sdk');
 const lineclient = new line.Client(configs.lineconfig);
 const M_LineContact = require('../models/M_Linecontact')
+const recastai = require('./recastaicontroller')
+
 function webhookImp(req, res) {
     Promise
         .all(req.body.events.map(handleEvent))
@@ -28,18 +30,28 @@ function handleEvent(event) {
     //     latitude: 35.65910807942215,
     //     longitude: 139.70372892916203
     //  };
-    const echo = '';
+
+    const echo = { type: 'text', text: event.message.text };
     
 
 //}
     //lineclient.pushMessage(event.source.userId, echo);
     console.log('Test UserID');
     console.log(event.source.userId);
+    recastai.recastAI(event.message.text)
+    .then((result) =>{
+        console.log(JSON.stringify(result));
+        echo.text = result.conversation.id;
+        lineclient.pushMessage(event.source.userId,echo);
+    }).catch((e)=>{
+        console.log(e.stack);
+    })
     lineclient.getProfile(event.source.userId)
         .then((profile) => {
             console.log(profile.displayName);
             console.log(profile.userId);
             console.log(profile.pictureUrl);
+
            // console.log(profile.statusMessage);
             M_LineContact.findOne({ lineId: event.source.userId })
                 .then((result) => {
@@ -51,22 +63,23 @@ function handleEvent(event) {
                             createdDate: new Date().toJSON(),
                         })
                             .then((result) => {
-                                if (event.message.text == 'map') {
-                                    echo = { type: 'location', 
-                                    title: 'Soft SQ Co.,Ltd.',
-                                    address: 'Central Tower1 Building',
-                                    latitude: 13.668498,
-                                    longitude: 100.633863
-                                    };
-                                }
-                                else {
-                                    const echo = { type: 'text', text: event.message.text };
-                                }
-                             lineclient.pushMessage(event.source.userId,echo);
+                               
                             }).catch((e) => {
                                 console.log(e);
                             });
                     }
+                    if (event.message.text == 'map') {
+                        echo = { type: 'location', 
+                        title: 'Soft SQ Co.,Ltd.',
+                        address: 'Central Tower1 Building',
+                        latitude: 13.668498,
+                        longitude: 100.633863
+                        };
+                    }
+                    else {
+                        const echo = { type: 'text', text: event.message.text };
+                    }
+                 lineclient.pushMessage(event.source.userId,echo);
                 })
                 .catch((err) => {
                     // error handling
