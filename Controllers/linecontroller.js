@@ -22,23 +22,45 @@ function handleEvent(event) {
     
       // create a echoing text message
       const echo = { type: 'text', text: event.message.text };
-     // M_LineContact.findOne({ lineId: event.source.userid })
-    //  .then((result)=> {
-    //    if (!result) {
+      
+      lineclient.getProfile('<userId>')
+        .then((profile) => {
+            console.log(profile.displayName);
+            console.log(profile.userId);
+            console.log(profile.pictureUrl);
+            console.log(profile.statusMessage); 
             M_LineContact.create({
-                lineId: event.source.userid,
-                displayName: event.source.displayName,
-                imageProfile: event.source.imageProfile,
+                lineId: profile.userId,
+                displayName: profile.displayName,
+                imageProfile: profile.pictureUrl,
                 createdDate: new Date().toJSON(),
               })
               .then((result) => {
             lineclient.pushMessage(event.source.userid, echo)
-              })
+              })        .catch((e) => {
+                console.log(e);
+              });
+  })
+  .catch((err) => {
+    // error handling
+  });
+     // M_LineContact.findOne({ lineId: event.source.userid })
+    //  .then((result)=> {
+    //    if (!result) {
+            // M_LineContact.create({
+            //     lineId: event.source.userid,
+            //     displayName: event.source.displayName,
+            //     imageProfile: event.source.imageProfile,
+            //     createdDate: new Date().toJSON(),
+            //   })
+            //   .then((result) => {
+            // lineclient.pushMessage(event.source.userid, echo)
+            //   })
       //}
     //}) 
-        .catch((e) => {
-        console.log(e);
-      });
+    //     .catch((e) => {
+    //     console.log(e);
+    //   });
       // use reply API
       //return lineclient.replyMessage(event.replyToken, echo);
      // return lineclient.pushMessage(event.source.userid,echo);
