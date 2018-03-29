@@ -3,7 +3,7 @@
 const configs = require('../configs');
 const line = require('@line/bot-sdk');
 const lineclient = new line.Client(configs.lineconfig);
-
+const M_LineContact = require('../models/M_Linecontact')
 function webhookImp(req, res) {
     Promise
     .all(req.body.events.map(handleEvent))
@@ -22,7 +22,20 @@ function handleEvent(event) {
     
       // create a echoing text message
       const echo = { type: 'text', text: event.message.text };
-    
+      M_LineContact.findOne({ lineId: event.source.userid })
+      .then((result)=> {
+        if (!result) {
+            M_LineContact.create({
+                lineId: event.source.userid,
+                displayName: event.source.displayName,
+                imageProfile: event.source.imageProfile,
+                createdDate: new Date().toJSON(),
+              })
+              .then((result) => {
+        lineclient.pushMessage(event.source.userid, echo)
+              })
+      }
+    })
       // use reply API
       return lineclient.replyMessage(event.replyToken, echo);
      // return lineclient.pushMessage(event.source.userid,echo);

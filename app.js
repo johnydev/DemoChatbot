@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const configs = require('./configs')
+const mongoose = require('mongoose')
+global.db = mongoose.createConnection(configs.mongodbconfig);
 
 var app = express();
 
@@ -14,6 +17,8 @@ var lineRouter = require('./routes/line');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/line', lineRouter);
+ 
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
