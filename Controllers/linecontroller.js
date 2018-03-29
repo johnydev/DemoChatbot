@@ -41,8 +41,17 @@ function handleEvent(event) {
     recastai.recastAI(event.message.text)
     .then((result) =>{
         console.log(JSON.stringify(result));
-        echo.text = result.nlp.source;
+        echo.text =JSON.stringify(result);
         lineclient.pushMessage(event.source.userId,echo);
+        // if (event.message.text = 'map') {
+        //     const echox = { type: 'location', 
+        //     title: 'Soft SQ Co.,Ltd.',
+        //     address: 'Central Tower1 Building',
+        //     latitude: 13.668498,
+        //     longitude: 100.633863
+        //     };
+        //     lineclient.pushMessage(event.source.userId,echox);
+        // }
     }).catch((e)=>{
         console.log('error Recast')
         console.log(e.stack);
@@ -75,15 +84,8 @@ function handleEvent(event) {
                 .catch((err) => {
                     // error handling
                 });
-                if (event.message.text = 'map') {
-                    const echox = { type: 'location', 
-                    title: 'Soft SQ Co.,Ltd.',
-                    address: 'Central Tower1 Building',
-                    latitude: 13.668498,
-                    longitude: 100.633863
-                    };
-                    lineclient.pushMessage(event.source.userId,echox);
-                }
+
+                
                // else {
                //     const echo = { type: 'text', text: event.message.text };
                // }
