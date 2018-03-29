@@ -44,8 +44,10 @@ function handleEvent(event) {
         echo.text = result.conversation.id;
         lineclient.pushMessage(event.source.userId,echo);
     }).catch((e)=>{
+        console.log('error Recast')
         console.log(e.stack);
     })
+
     lineclient.getProfile(event.source.userId)
         .then((profile) => {
             console.log(profile.displayName);
