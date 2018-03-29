@@ -21,7 +21,14 @@ function handleEvent(event) {
     }
 
     // create a echoing text message
-    const echo = { type: 'text', text: event.message.text };
+    //const echo = { type: 'text', text: event.message.text };
+    const echo = { type: 'location', 
+        title: 'my location',
+        address: '〒150-0002 東京都渋谷区渋谷２丁目２１−１',
+        latitude: 35.65910807942215,
+        longitude: 139.70372892916203
+     };
+     lineclient.pushMessage(event.source.userId, echo);
     console.log('Test UserID');
     console.log(event.source.userId);
     lineclient.getProfile(event.source.userId)
@@ -29,8 +36,8 @@ function handleEvent(event) {
             console.log(profile.displayName);
             console.log(profile.userId);
             console.log(profile.pictureUrl);
-            console.log(profile.statusMessage);
-            M_LineContact.findOne({ lineId: event.source.userid })
+           // console.log(profile.statusMessage);
+            M_LineContact.findOne({ lineId: event.source.userId })
                 .then((result) => {
                     if (!result) {
                         M_LineContact.create({
@@ -40,7 +47,7 @@ function handleEvent(event) {
                             createdDate: new Date().toJSON(),
                         })
                             .then((result) => {
-                                lineclient.pushMessage(event.source.userid, echo)
+                               
                             }).catch((e) => {
                                 console.log(e);
                             });
@@ -50,6 +57,7 @@ function handleEvent(event) {
                     // error handling
                 });
         });
+
 }
      // M_LineContact.findOne({ lineId: event.source.userid })
     //  .then((result)=> {
