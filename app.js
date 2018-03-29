@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const configs = require('./configs')
 const mongoose = require('mongoose')
-mongoose.connect(configs.mongodbconfig);
+
 
 //global.db = mongoose.createConnection(configs.mongodbconfig);
 
@@ -21,7 +21,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/line', lineRouter);
  
-
+mongoose.connect(configs.mongodbconfig);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

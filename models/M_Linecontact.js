@@ -12,5 +12,5 @@ let M_LineContactSchema = new mongoose.Schema({
 // mongoose.model('M_LineContact', M_LineContactSchema);
 // module.exports = mongoose.model('M_LineContact');
 
-module.exports = mongoose.model('M_LineContact');
+module.exports = mongoose.model('M_LineContact', M_LineContactSchema);
 
