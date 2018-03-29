@@ -62,7 +62,7 @@ function handleEvent(event) {
                                 else {
                                     const echo = { type: 'text', text: event.message.text };
                                 }
-                                return lineclient.pushMessage(event.source.userId,echo);
+                             lineclient.pushMessage(event.source.userId,echo);
                             }).catch((e) => {
                                 console.log(e);
                             });
