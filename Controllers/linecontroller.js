@@ -22,18 +22,27 @@ function handleEvent(event) {
 
     // create a echoing text message
     //const echo = { type: 'text', text: event.message.text };
-    //const echo = '';
-    //if (event.message.text == 'map') {
-        const echo = { type: 'location', 
+    // const echo = { type: 'location', 
+    //     title: 'Softsq ',
+    //     address: '〒150-0002 東京都渋谷区渋谷２丁目２１−１',
+    //     latitude: 35.65910807942215,
+    //     longitude: 139.70372892916203
+    //  };
+    const echo = '';
+    if (event.message.text == 'map') {
+        echo = { type: 'location', 
         title: 'Soft SQ Co.,Ltd.',
-        address: '589/116 20th Floor, Central Tower1 Building, Bang na Trad , Bangna, Khwaeng Bang Na, Khet Bang Na, Krung Thep Maha Nakhon 10260',
+        address: 'Central Tower1 Building',
         latitude: 13.668498,
         longitude: 100.633863
-     };
-     lineclient.pushMessage(event.source.userId, echo);
-    //}
-    
-     
+        };
+    }
+    else {
+        const echo = { type: 'text', text: event.message.text };
+    }
+
+//}
+    lineclient.pushMessage(event.source.userId, echo);
     console.log('Test UserID');
     console.log(event.source.userId);
     lineclient.getProfile(event.source.userId)
