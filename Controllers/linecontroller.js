@@ -23,7 +23,7 @@ function handleEvent(event) {
       // create a echoing text message
       const echo = { type: 'text', text: event.message.text };
       
-      lineclient.getProfile('<userId>')
+      lineclient.getProfile(event.source.userid)
         .then((profile) => {
             console.log(profile.displayName);
             console.log(profile.userId);
