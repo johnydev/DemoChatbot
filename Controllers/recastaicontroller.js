@@ -11,7 +11,7 @@ function testRecast(msg){
     // console.log(request)
 
     var build = new recastai.build(configs.recastconfig, 'en')
-    return build.dialog({ type: 'text', content: msg})
+    return build.dialog({ type: 'text', content: msg, conversationId: 'CONVERSATION_ID' })
     
 }
 
