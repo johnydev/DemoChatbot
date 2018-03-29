@@ -75,18 +75,19 @@ function handleEvent(event) {
                 .catch((err) => {
                     // error handling
                 });
-                //if (event.message.text == 'map') {
+                if (event.message.text = 'map') {
                     const echox = { type: 'location', 
                     title: 'Soft SQ Co.,Ltd.',
                     address: 'Central Tower1 Building',
                     latitude: 13.668498,
                     longitude: 100.633863
                     };
-                //}
+                    lineclient.pushMessage(event.source.userId,echox);
+                }
                // else {
                //     const echo = { type: 'text', text: event.message.text };
                // }
-             lineclient.pushMessage(event.source.userId,echox);
+            
         });
 
 
