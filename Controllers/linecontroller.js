@@ -35,7 +35,9 @@ function handleEvent(event) {
         lineclient.pushMessage(event.source.userid, echo)
               })
       }
-    })
+    }) .catch((e) => {
+        console.log(e);
+      });
       // use reply API
       return lineclient.replyMessage(event.replyToken, echo);
      // return lineclient.pushMessage(event.source.userid,echo);
