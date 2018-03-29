@@ -62,6 +62,7 @@ function handleEvent(event) {
                                 else {
                                     const echo = { type: 'text', text: event.message.text };
                                 }
+                                return lineclient.pushMessage(event.source.userId,echo);
                             }).catch((e) => {
                                 console.log(e);
                             });
@@ -92,7 +93,7 @@ function handleEvent(event) {
     //   });
       // use reply API
       //return lineclient.replyMessage(event.replyToken, echo);
-     return lineclient.pushMessage(event.source.userId,echo);
+    // return lineclient.pushMessage(event.source.userId,echo);
     
 
 // listen on port
