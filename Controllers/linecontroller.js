@@ -41,7 +41,7 @@ function handleEvent(event) {
     recastai.recastAI(event.message.text)
     .then((result) =>{
         console.log(JSON.stringify(result));
-        echo.text = result.conversation.id;
+        echo.text = result.nlp.entities;
         lineclient.pushMessage(event.source.userId,echo);
     }).catch((e)=>{
         console.log('error Recast')
